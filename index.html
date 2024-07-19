@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>anterion</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="/html/terms.html">Terms & Policy</a></li>
+                    <li><a href="/html/faq.html">FAQ</a></li>                
+                    <li><a href="/html/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <span class="searchBar">
+        <input placeholder="Search..." id="searchBar" name="searchBar" type="text">
+        <img src="/assets/icons/searchicon.png" class="searchIcon">
+        <div style="padding: 10px;"></div>
+        <select id="filter" name="filter">
+            <option value="default">Sort By</option>
+            <option value="lowest">Price: Low to High</option>
+            <option value="highest">Price: High to Low</option>
+            <option value="a-z">A-Z</option>
+            <option value="z-a">Z-A</option>
+            <option value="minmax">Min to Max</option>
+        </select>
+        <input type="number" id="minPrice" placeholder="Min Price" style="display: none;">
+        <input type="number" id="maxPrice" placeholder="Max Price" style="display: none;">
+    </span>
+    <div class="data">
+        <div class="body">
+            <div id="root"></div>
+        </div>
+    </div>
+    <script src="/js/script.js"></script>
+</body>
+</html>
