@@ -120,7 +120,7 @@ const displayItem = (items) => {
                         <h2 class='original-price' style="${discountedPrice !== undefined ? 'text-decoration: line-through;' : ''}">${displayOriginalPrice}</h2>
                         ${discountedPrice !== undefined ? `<h2 class='discounted-price'>${displayDiscountedPrice}</h2>` : ''}
                     </div>
-                    <button onclick="viewProduct(${id}, ${code})">View Product</button>
+                    <button onclick="viewProduct(${code})">View Product</button>
                 </div>
             </div>
         `;
@@ -128,8 +128,8 @@ const displayItem = (items) => {
 };
 
 // Function to view product details
-const viewProduct = (id, code) => {
-    const product = products.find(p => p.id === id && p.code === code);
+const viewProduct = (code) => {
+    const product = products.find(p => p.code === code);
     if (product) {
         document.body.innerHTML = `
             <header>
