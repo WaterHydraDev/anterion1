@@ -1,6 +1,7 @@
 const products = [
     {
-        id: '2f4b8cb7-1c6e-4c5e-a7ef-5e8285e3484b',
+        id: 0,
+        code: 1001,
         image: 'assets/images/Ikaria-Juice-Product-1.png',
         title: 'Ikaria Juice',
         price: { value1: 69, value2: 39 },
@@ -9,7 +10,8 @@ const products = [
         affiliateLink: 'https://theikariajuice.com?&shield=ff0925wsrkmkxuddke55l-6k3e'
     },
     {
-        id: 'ff3d7fbb-f9c4-4af5-b4e5-6787d69db6f6',
+        id: 1,
+        code: 1002,
         image: 'assets/images/SugarDefender-1.webp',
         title: 'Sugar Defender',
         price: { value1: 69, value2: 49 },
@@ -18,7 +20,8 @@ const products = [
         affiliateLink: 'https://ef9c560indmhwv9rybfhk6sz1v.hop.clickbank.net'
     },
     {
-        id: 'c81b8b56-1b88-4cf4-b5b1-5f0282d72650',
+        id: 2,
+        code: 1003,
         image: 'assets/images/GreenGlucose-1.png',
         title: 'Green Glucose',
         price: { value1: 79, value2: 49 },
@@ -27,7 +30,8 @@ const products = [
         affiliateLink: 'https://2f20a8zmrfxbvnc2z9gfsh27-l.hop.clickbank.net'
     },
     {
-        id: '3c8ec0f3-4c18-4d95-84d1-74a4ff3ed6c1',
+        id: 3,
+        code: 1004,
         image: 'assets/images/Sumatra-1.png',
         title: 'Sumatra Slim Belly Tonic',
         price: { value1: 59, value2: 39 },
@@ -36,7 +40,8 @@ const products = [
         affiliateLink: 'https://e0566xsekitark6i6dio3ayb4c.hop.clickbank.net'
     },
     {
-        id: '7ad60ab4-63b4-41cf-9e44-0cb8b5f45b8e',
+        id: 4,
+        code: 1005,
         image: 'assets/images/TheSoomthieDiet.png',
         title: 'The Smoothie Diet',
         price: { value1: 47, value2: 27 },
@@ -93,7 +98,7 @@ const filterAndDisplayItems = () => {
 // Function to display items on the main page
 const displayItem = (items) => {
     document.getElementById('root').innerHTML = items.map(item => {
-        const { image, title, price, discountedPrice, id } = item;
+        const { image, title, price, discountedPrice, id, code } = item;
         let displayOriginalPrice = '';
         let displayDiscountedPrice = '';
 
@@ -115,7 +120,7 @@ const displayItem = (items) => {
                         <h2 class='original-price' style="${discountedPrice !== undefined ? 'text-decoration: line-through;' : ''}">${displayOriginalPrice}</h2>
                         ${discountedPrice !== undefined ? `<h2 class='discounted-price'>${displayDiscountedPrice}</h2>` : ''}
                     </div>
-                    <button onclick="viewProduct('${id}')">View Product</button>
+                    <button onclick="viewProduct(${id}, ${code})">View Product</button>
                 </div>
             </div>
         `;
@@ -123,8 +128,8 @@ const displayItem = (items) => {
 };
 
 // Function to view product details
-const viewProduct = (id) => {
-    const product = products.find(p => p.id === id);
+const viewProduct = (id, code) => {
+    const product = products.find(p => p.id === id && p.code === code);
     if (product) {
         document.body.innerHTML = `
             <header>
