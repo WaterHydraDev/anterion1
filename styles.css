@@ -210,6 +210,17 @@ button:hover {
     text-decoration: underline;
 }
 
+/* Adjusted CSS for the main page price display */
+.price-container {
+    display: flex;
+    align-items: center;
+}
+
+.original-price {
+    color: black;
+    margin-right: 10px;
+}
+
 /*Display Settings*/
 @media (max-width: 768px) {
     #root {

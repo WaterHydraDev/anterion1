@@ -1,10 +1,51 @@
 const products = [
-    { id: 0, image: 'assets/images/Ikaria-Juice-Product-1.png', title: 'Ikaria Juice', price: { value1: 69, value2: 39 }, description: 'A healthy juice', ingredients: 'Water, Sugar, Lemon', affiliateLink: 'https://affiliate-link.com/ikaria-juice' },
-    { id: 1, image: 'assets/images/SugarDefender-1.webp', title: 'Sugar Defender', price: { value1: 69, value2: 49 }, description: 'Protects against sugar', ingredients: 'Cinnamon, Chromium, Berberine', affiliateLink: 'https://affiliate-link.com/sugar-defender' },
-    { id: 2, image: 'assets/images/GreenGlucose-1.png', title: 'Green Glucose', price: { value1: 79, value2: 49 }, description: 'Supports healthy glucose levels', ingredients: 'Green Tea, Gymnema, Alpha Lipoic Acid', affiliateLink: 'https://affiliate-link.com/green-glucose' },
-    { id: 3, image: 'assets/images/Sumatra-1.png', title: 'Sumatra Slim Belly Tonic', price: { value1: 59, value2: 39 }, description: 'Tones the belly', ingredients: 'Ginger, Turmeric, Cinnamon', affiliateLink: 'https://affiliate-link.com/sumatra-tonic' },
-    { id: 4, image: 'assets/images/TheSoomthieDiet.png', title: 'The Soomthie Diet', price: 47, discountedPrice: 27, description: 'A smoothie diet plan', ingredients: 'Various fruits and vegetables', affiliateLink: 'https://affiliate-link.com/smoothie-diet' }
+    {
+        id: 0,
+        image: 'assets/images/Ikaria-Juice-Product-1.png',
+        title: 'Ikaria Juice',
+        price: { value1: 69, value2: 39 },
+        description: 'Ancient “Juice” Melts Fat Fast. Experience the power of nature with a blend of potent ingredients designed to aid weight loss.',
+        ingredients: 'Milk Thistle, Taraxacum, Panax Ginseng, Resveratrol, Citrus Pectin, EGCG, Fucoxanthin, Bioperine',
+        affiliateLink: 'https://theikariajuice.com?&shield=ff0925wsrkmkxuddke55l-6k3e'
+    },
+    {
+        id: 1,
+        image: 'assets/images/SugarDefender-1.webp',
+        title: 'Sugar Defender',
+        price: { value1: 69, value2: 49 },
+        description: 'Defend against sugar-related health issues with a powerful blend of natural ingredients.',
+        ingredients: 'Cinnamon, Chromium, Berberine, Gymnema Sylvestre, Alpha Lipoic Acid',
+        affiliateLink: 'https://ef9c560indmhwv9rybfhk6sz1v.hop.clickbank.net'
+    },
+    {
+        id: 2,
+        image: 'assets/images/GreenGlucose-1.png',
+        title: 'Green Glucose',
+        price: { value1: 79, value2: 49 },
+        description: 'Supports healthy glucose levels with a potent blend of natural ingredients.',
+        ingredients: 'Green Tea, Gymnema, Alpha Lipoic Acid, Cinnamon, Chromium, Berberine',
+        affiliateLink: 'https://2f20a8zmrfxbvnc2z9gfsh27-l.hop.clickbank.net'
+    },
+    {
+        id: 3,
+        image: 'assets/images/Sumatra-1.png',
+        title: 'Sumatra Slim Belly Tonic',
+        price: { value1: 59, value2: 39 },
+        description: 'Melt stubborn fat with a unique tonic inspired by traditional remedies.',
+        ingredients: 'Weird Blue Tonic',
+        affiliateLink: 'https://e0566xsekitark6i6dio3ayb4c.hop.clickbank.net'
+    },
+    {
+        id: 4,
+        image: 'assets/images/TheSoomthieDiet.png',
+        title: 'The Smoothie Diet',
+        price: { value1: 47, value2: 27 },
+        description: 'A 21-day weight loss program featuring delicious and healthy smoothies.',
+        ingredients: 'Various fruits and vegetables',
+        affiliateLink: 'https://1401cv0kqgnd1y7k1ctgj4x03e.hop.clickbank.net'
+    }
 ];
+
 
 const searchBar = document.getElementById('searchBar');
 const filter = document.getElementById('filter');
@@ -72,7 +113,7 @@ const displayItem = (items) => {
                 <div class='bottom'>
                     <p>${title}</p>
                     <div class='price-container'>
-                        ${discountedPrice !== undefined ? `<h2 class='original-price' style="color: black; text-decoration: line-through;">${displayOriginalPrice}</h2>` : `<h2 class='original-price'>${displayOriginalPrice}</h2>`}
+                        <h2 class='original-price' style="${discountedPrice !== undefined ? 'text-decoration: line-through;' : ''}">${displayOriginalPrice}</h2>
                         ${discountedPrice !== undefined ? `<h2 class='discounted-price'>${displayDiscountedPrice}</h2>` : ''}
                     </div>
                     <button onclick="viewProduct(${id})">View Product</button>
