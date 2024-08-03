@@ -1,6 +1,6 @@
 const products = [
     {
-        id: 0,
+        id: '2f4b8cb7-1c6e-4c5e-a7ef-5e8285e3484b',
         image: 'assets/images/Ikaria-Juice-Product-1.png',
         title: 'Ikaria Juice',
         price: { value1: 69, value2: 39 },
@@ -9,43 +9,42 @@ const products = [
         affiliateLink: 'https://theikariajuice.com?&shield=ff0925wsrkmkxuddke55l-6k3e'
     },
     {
-        id: 1,
+        id: 'ff3d7fbb-f9c4-4af5-b4e5-6787d69db6f6',
         image: 'assets/images/SugarDefender-1.webp',
         title: 'Sugar Defender',
         price: { value1: 69, value2: 49 },
-        description: 'Defend against sugar-related health issues with a powerful blend of natural ingredients.',
+        description: 'Defend against sugar-related health issues with a powerful blend of natural ingredients. Ingredients include Cinnamon, Chromium, Berberine, Gymnema Sylvestre, and Alpha Lipoic Acid.',
         ingredients: 'Cinnamon, Chromium, Berberine, Gymnema Sylvestre, Alpha Lipoic Acid',
         affiliateLink: 'https://ef9c560indmhwv9rybfhk6sz1v.hop.clickbank.net'
     },
     {
-        id: 2,
+        id: 'c81b8b56-1b88-4cf4-b5b1-5f0282d72650',
         image: 'assets/images/GreenGlucose-1.png',
         title: 'Green Glucose',
         price: { value1: 79, value2: 49 },
-        description: 'Supports healthy glucose levels with a potent blend of natural ingredients.',
+        description: 'Supports healthy glucose levels with a potent blend of natural ingredients. Ingredients include Green Tea, Gymnema, Alpha Lipoic Acid, Cinnamon, Chromium, and Berberine.',
         ingredients: 'Green Tea, Gymnema, Alpha Lipoic Acid, Cinnamon, Chromium, Berberine',
         affiliateLink: 'https://2f20a8zmrfxbvnc2z9gfsh27-l.hop.clickbank.net'
     },
     {
-        id: 3,
+        id: '3c8ec0f3-4c18-4d95-84d1-74a4ff3ed6c1',
         image: 'assets/images/Sumatra-1.png',
         title: 'Sumatra Slim Belly Tonic',
         price: { value1: 59, value2: 39 },
-        description: 'Melt stubborn fat with a unique tonic inspired by traditional remedies.',
+        description: 'Melt stubborn fat with a unique tonic inspired by traditional remedies. Ingredients include Weird Blue Tonic.',
         ingredients: 'Weird Blue Tonic',
         affiliateLink: 'https://e0566xsekitark6i6dio3ayb4c.hop.clickbank.net'
     },
     {
-        id: 4,
+        id: '7ad60ab4-63b4-41cf-9e44-0cb8b5f45b8e',
         image: 'assets/images/TheSoomthieDiet.png',
         title: 'The Smoothie Diet',
         price: { value1: 47, value2: 27 },
-        description: 'A 21-day weight loss program featuring delicious and healthy smoothies.',
+        description: 'A 21-day weight loss program featuring delicious and healthy smoothies. Ingredients include various fruits and vegetables.',
         ingredients: 'Various fruits and vegetables',
         affiliateLink: 'https://1401cv0kqgnd1y7k1ctgj4x03e.hop.clickbank.net'
     }
 ];
-
 
 const searchBar = document.getElementById('searchBar');
 const filter = document.getElementById('filter');
@@ -116,7 +115,7 @@ const displayItem = (items) => {
                         <h2 class='original-price' style="${discountedPrice !== undefined ? 'text-decoration: line-through;' : ''}">${displayOriginalPrice}</h2>
                         ${discountedPrice !== undefined ? `<h2 class='discounted-price'>${displayDiscountedPrice}</h2>` : ''}
                     </div>
-                    <button onclick="viewProduct(${id})">View Product</button>
+                    <button onclick="viewProduct('${id}')">View Product</button>
                 </div>
             </div>
         `;
