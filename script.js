@@ -152,7 +152,7 @@ const viewProduct = (id, code) => {
                         <p id="product-description" class="product-description">${product.description}</p>
                         <p id="product-ingredients" class="product-ingredients"><strong>Ingredients:</strong> ${product.ingredients}</p>
                         <a href="${product.affiliateLink}" target="_blank"><button>Buy Now</button></a>
-                        <button onclick="window.history.back()">Back to Products</button>
+                        <button onclick="window.location.href='index.html'">Back to Products</button>
                         <div class="terms-notice">
                             <h5>Please read our <a href="/html/terms.html">Terms & Policy</a> before purchase</h5>
                         </div>
