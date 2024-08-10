@@ -1,7 +1,6 @@
 const products = [
     {
         id: 0,
-        code: 1001,
         image: 'assets/images/Ikaria-Juice-Product-1.png',
         title: 'Ikaria Juice',
         price: { value1: 69, value2: 39 },
@@ -56,6 +55,22 @@ const filter = document.getElementById('filter');
 const minPriceInput = document.getElementById('minPrice');
 const maxPriceInput = document.getElementById('maxPrice');
 
+// Function to generate affiliate link based on code
+function generateAffiliateLink(code) {
+    return `https://defaultwebsite/${code}`;
+}
+
+// Function to update products with generated affiliate links
+function generateProductLinks(products) {
+    return products.map(product => ({
+        ...product,
+        affiliateLink: generateAffiliateLink(product.code)
+    }));
+}
+
+// Updating the products array with new affiliate links
+const updatedProducts = generateProductLinks(products);
+
 // Function to get effective price
 const getEffectivePrice = (item) => {
     if (item.discountedPrice !== undefined) {
@@ -69,7 +84,7 @@ const getEffectivePrice = (item) => {
 // Function to filter and display items
 const filterAndDisplayItems = () => {
     let searchData = searchBar.value.toLowerCase();
-    let filteredData = products.filter(item => 
+    let filteredData = updatedProducts.filter(item => 
         item.title.toLowerCase().includes(searchData)
     );
 
@@ -129,7 +144,7 @@ const displayItem = (items) => {
 
 // Function to view product details
 const viewProduct = (code) => {
-    const product = products.find(p => p.code === code);
+    const product = updatedProducts.find(p => p.code === code);
     if (product) {
         document.body.innerHTML = `
             <header>
@@ -184,4 +199,4 @@ minPriceInput.addEventListener('input', filterAndDisplayItems);
 maxPriceInput.addEventListener('input', filterAndDisplayItems);
 
 // Initial display
-displayItem(products);
+displayItem(updatedProducts);
