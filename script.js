@@ -1,8 +1,6 @@
-// Array to store product details
 const products = [
     {
         id: 0,
-        code: 1001,
         image: 'assets/images/Ikaria-Juice-Product-1.png',
         title: 'Ikaria Juice',
         price: { value1: 69, value2: 39 },
@@ -45,96 +43,160 @@ const products = [
         code: 1005,
         image: 'assets/images/TheSoomthieDiet.png',
         title: 'The Smoothie Diet',
-        price: { discountedPrice: 27 },
+        price: { value1: 47, value2: 27 },
         description: 'A 21-day weight loss program featuring delicious and healthy smoothies. Ingredients include various fruits and vegetables.',
         ingredients: 'Various fruits and vegetables',
         affiliateLink: 'https://1401cv0kqgnd1y7k1ctgj4x03e.hop.clickbank.net'
     }
 ];
 
-// Function to render product list
-const renderProducts = () => {
-    const productList = document.getElementById('product-list');
-    productList.innerHTML = products.map(product => `
-        <div class="product-item">
-            <img src="${product.image}" alt="${product.title}">
-            <h2>${product.title}</h2>
-            <p>${product.description}</p>
-            <p><strong>Price:</strong> ${product.price.value1 ? `$${product.price.value1} - $${product.price.value2}` : `$${product.price.discountedPrice}`}</p>
-            <a href="/product.html?code=${product.code}"><button>View Product</button></a>
-        </div>
-    `).join('');
+const searchBar = document.getElementById('searchBar');
+const filter = document.getElementById('filter');
+const minPriceInput = document.getElementById('minPrice');
+const maxPriceInput = document.getElementById('maxPrice');
+
+// Function to generate affiliate link based on code
+function generateAffiliateLink(code) {
+    return `https://defaultwebsite/${code}`;
+}
+
+// Function to update products with generated affiliate links
+function generateProductLinks(products) {
+    return products.map(product => ({
+        ...product,
+        affiliateLink: generateAffiliateLink(product.code)
+    }));
+}
+
+// Updating the products array with new affiliate links
+const updatedProducts = generateProductLinks(products);
+
+// Function to get effective price
+const getEffectivePrice = (item) => {
+    if (item.discountedPrice !== undefined) {
+        return item.discountedPrice;
+    } else if (typeof item.price === 'object') {
+        return item.price.value2;
+    }
+    return item.price;
 };
 
-// On page load, render products
-window.onload = renderProducts;
+// Function to filter and display items
+const filterAndDisplayItems = () => {
+    let searchData = searchBar.value.toLowerCase();
+    let filteredData = updatedProducts.filter(item => 
+        item.title.toLowerCase().includes(searchData)
+    );
 
-// Function to filter and search products
-const filterAndSearchProducts = () => {
-    let filteredProducts = [...products];
-    const searchQuery = document.getElementById('searchBar').value.toLowerCase();
-    const filterOption = document.getElementById('filter').value;
+    const sortBy = filter.value;
 
-    // Filter by search query
-    if (searchQuery) {
-        filteredProducts = filteredProducts.filter(product => 
-            product.title.toLowerCase().includes(searchQuery) || 
-            product.description.toLowerCase().includes(searchQuery)
-        );
+    if (sortBy === 'lowest') {
+        filteredData.sort((a, b) => getEffectivePrice(a) - getEffectivePrice(b));
+    } else if (sortBy === 'highest') {
+        filteredData.sort((a, b) => getEffectivePrice(b) - getEffectivePrice(a));
+    } else if (sortBy === 'a-z') {
+        filteredData.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortBy === 'z-a') {
+        filteredData.sort((a, b) => b.title.localeCompare(a.title));
+    } else if (sortBy === 'minmax') {
+        const minPrice = parseFloat(minPriceInput.value) || 0;
+        const maxPrice = parseFloat(maxPriceInput.value) || Infinity;
+        filteredData = filteredData.filter(item => {
+            const effectivePrice = getEffectivePrice(item);
+            return effectivePrice >= minPrice && effectivePrice <= maxPrice;
+        });
     }
 
-    // Apply sorting and filtering
-    switch (filterOption) {
-        case 'lowest':
-            filteredProducts.sort((a, b) => {
-                const priceA = a.price.value2 || a.price.discountedPrice;
-                const priceB = b.price.value2 || b.price.discountedPrice;
-                return priceA - priceB;
-            });
-            break;
-        case 'highest':
-            filteredProducts.sort((a, b) => {
-                const priceA = a.price.value2 || a.price.discountedPrice;
-                const priceB = b.price.value2 || b.price.discountedPrice;
-                return priceB - priceA;
-            });
-            break;
-        case 'a-z':
-            filteredProducts.sort((a, b) => a.title.localeCompare(b.title));
-            break;
-        case 'z-a':
-            filteredProducts.sort((a, b) => b.title.localeCompare(a.title));
-            break;
-        case 'minmax':
-            const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
-            const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
-            filteredProducts = filteredProducts.filter(product => {
-                const price = product.price.value2 || product.price.discountedPrice;
-                return price >= minPrice && price <= maxPrice;
-            });
-            break;
-    }
+    displayItem(filteredData);
+};
 
-    // Render filtered products
-    const productList = document.getElementById('product-list');
-    productList.innerHTML = filteredProducts.map(product => `
-        <div class="product-item">
-            <img src="${product.image}" alt="${product.title}">
-            <h2>${product.title}</h2>
-            <p>${product.description}</p>
-            <p><strong>Price:</strong> ${product.price.value1 ? `$${product.price.value1} - $${product.price.value2}` : `$${product.price.discountedPrice}`}</p>
-            <a href="/product.html?code=${product.code}"><button>View Product</button></a>
-        </div>
-    `).join('');
+// Function to display items on the main page
+const displayItem = (items) => {
+    document.getElementById('root').innerHTML = items.map(item => {
+        const { image, title, price, discountedPrice, id, code } = item;
+        let displayOriginalPrice = '';
+        let displayDiscountedPrice = '';
+
+        if (discountedPrice !== undefined) {
+            displayOriginalPrice = typeof price === 'object' ? `$${price.value1}.00` : `$${price}.00`;
+            displayDiscountedPrice = `$${discountedPrice}.00`;
+        } else {
+            displayOriginalPrice = typeof price === 'object' ? `$${price.value1}.00 - $${price.value2}.00` : `$${price}.00`;
+        }
+
+        return `
+            <div class='box'>
+                <div class='img-box'>
+                    <img class='images' src=${image} alt='${title}'>
+                </div>
+                <div class='bottom'>
+                    <p>${title}</p>
+                    <div class='price-container'>
+                        <h2 class='original-price' style="${discountedPrice !== undefined ? 'text-decoration: line-through;' : ''}">${displayOriginalPrice}</h2>
+                        ${discountedPrice !== undefined ? `<h2 class='discounted-price'>${displayDiscountedPrice}</h2>` : ''}
+                    </div>
+                    <button onclick="viewProduct(${code})">View Product</button>
+                </div>
+            </div>
+        `;
+    }).join('');
+};
+
+// Function to view product details
+const viewProduct = (code) => {
+    const product = updatedProducts.find(p => p.code === code);
+    if (product) {
+        document.body.innerHTML = `
+            <header>
+                <div class="container">
+                    <nav>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="/html/terms.html">Terms & Policy</a></li>
+                            <li><a href="/html/faq.html">FAQ</a></li>                
+                            <li><a href="/html/contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+            <div id="product-detail" class="product-detail">
+                <div class="product-info">
+                    <img id="product-image" class="product-image" src="${product.image}" alt="${product.title}">
+                    <div class="product-description-container">
+                        <h1 id="product-title" class="product-title">${product.title}</h1>
+                        <p id="product-description" class="product-description">${product.description}</p>
+                        <p id="product-ingredients" class="product-ingredients"><strong>Ingredients:</strong> ${product.ingredients}</p>
+                        <a href="${product.affiliateLink}" target="_blank"><button>Buy Now</button></a>
+                        <button onclick="window.location.href='index.html'">Back to Products</button>
+                        <div class="terms-notice">
+                            <h5>Please read our <a href="/html/terms.html">Terms & Policy</a> before purchase</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    } else {
+        document.body.innerHTML = '<p>Product not found</p>';
+    }
 };
 
 // Event listeners for search and filter
-document.getElementById('searchBar').addEventListener('input', filterAndSearchProducts);
-document.getElementById('filter').addEventListener('change', () => {
-    const filterValue = document.getElementById('filter').value;
-    const minMaxFields = ['minPrice', 'maxPrice'];
-    minMaxFields.forEach(field => {
-        document.getElementById(field).style.display = filterValue === 'minmax' ? 'inline-block' : 'none';
-    });
-    filterAndSearchProducts();
+searchBar.addEventListener('keyup', filterAndDisplayItems);
+filter.addEventListener('change', (e) => {
+    if (e.target.value === 'minmax') {
+        minPriceInput.style.display = 'block';
+        maxPriceInput.style.display = 'block';
+    } else {
+        minPriceInput.style.display = 'none';
+        maxPriceInput.style.display = 'none';
+        minPriceInput.value = '';
+        maxPriceInput.value = '';
+    }
+    filterAndDisplayItems();
 });
+
+minPriceInput.addEventListener('input', filterAndDisplayItems);
+maxPriceInput.addEventListener('input', filterAndDisplayItems);
+
+// Initial display
+displayItem(updatedProducts);
