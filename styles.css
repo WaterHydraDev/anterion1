@@ -72,12 +72,6 @@ header nav ul li a {
     width: 100px; /* Width for price inputs */
 }
 
-.searchIcon {
-    max-width: 25px;
-    max-height: 25px;
-    cursor: pointer;
-}
-
 #filter {
     padding: 5px;
     border-radius: 3px;
