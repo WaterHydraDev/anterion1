@@ -68,7 +68,7 @@ const getEffectivePrice = (item) => {
 // Function to filter and display items
 const filterAndDisplayItems = () => {
     let searchData = searchBar.value.toLowerCase();
-    let filteredData = updatedProducts.filter(item => 
+    let filteredData = products.filter(item => 
         item.title.toLowerCase().includes(searchData)
     );
 
@@ -128,7 +128,7 @@ const displayItem = (items) => {
 
 // Function to view product details
 const viewProduct = (code) => {
-    const product = updatedProducts.find(p => p.code === code);
+    const product = products.find(p => p.code === code);
     if (product) {
         document.body.innerHTML = `
             <header>
@@ -183,4 +183,5 @@ minPriceInput.addEventListener('input', filterAndDisplayItems);
 maxPriceInput.addEventListener('input', filterAndDisplayItems);
 
 // Initial display
-displayItem(updatedProducts);
+displayItem(products);
+
