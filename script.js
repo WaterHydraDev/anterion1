@@ -55,22 +55,6 @@ const filter = document.getElementById('filter');
 const minPriceInput = document.getElementById('minPrice');
 const maxPriceInput = document.getElementById('maxPrice');
 
-// Function to generate affiliate link based on code
-function generateAffiliateLink(code) {
-    return `https://defaultwebsite/${code}`;
-}
-
-// Function to update products with generated affiliate links
-function generateProductLinks(products) {
-    return products.map(product => ({
-        ...product,
-        affiliateLink: generateAffiliateLink(product.code)
-    }));
-}
-
-// Updating the products array with new affiliate links
-const updatedProducts = generateProductLinks(products);
-
 // Function to get effective price
 const getEffectivePrice = (item) => {
     if (item.discountedPrice !== undefined) {
