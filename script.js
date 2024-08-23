@@ -119,16 +119,17 @@ const displayItem = (items) => {
                         <h2 class='original-price' style="${discountedPrice !== undefined ? 'text-decoration: line-through;' : ''}">${displayOriginalPrice}</h2>
                         ${discountedPrice !== undefined ? `<h2 class='discounted-price'>${displayDiscountedPrice}</h2>` : ''}
                     </div>
-                    <button onclick="viewProduct(${code})">View Product</button>
+                    <a href="/${code}"><button>View Product</button></a>
                 </div>
             </div>
         `;
     }).join('');
 };
 
-// Function to view product details
-const viewProduct = (code) => {
-    const product = products.find(p => p.code === code);
+// Function to view product details based on code in URL
+const viewProduct = () => {
+    const code = window.location.pathname.substring(1);
+    const product = products.find(p => p.code === parseInt(code));
     if (product) {
         document.body.innerHTML = `
             <header>
@@ -185,3 +186,5 @@ maxPriceInput.addEventListener('input', filterAndDisplayItems);
 // Initial display
 displayItem(products);
 
+// Call viewProduct when the page loads
+window.onload = viewProduct;
